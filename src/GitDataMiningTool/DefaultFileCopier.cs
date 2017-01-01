@@ -2,7 +2,7 @@
 
 namespace GitDataMiningTool
 {
-    internal class FileCopier : IFileCopier
+    internal class DefaultFileCopier : IFileCopier
     {
         public void CopyGenerateGitLogFileToPath(
             string source,

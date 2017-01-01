@@ -1,30 +1,25 @@
 ﻿using GitDataMiningTool.Commands;
+using GitDataMiningTool.Pipes;
 using System;
 using System.Threading.Tasks;
 
 namespace GitDataMiningTool
 {
-    internal class RepositoryAnalyser : IRepositoryAnalyser
+    public class RepositoryAnalyser
     {
-        private readonly IPipelineFactory _pipelineFactory;
+        private readonly CompositePipe<CommandResults> _pipeline;
 
-        public RepositoryAnalyser(IPipelineFactory pipelineFactory)
+        public RepositoryAnalyser(CompositePipe<CommandResults> pipeline)
         {
-            if (pipelineFactory == null)
-                throw new ArgumentNullException(nameof(pipelineFactory));
-
-            _pipelineFactory = pipelineFactory;
+            _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
         }
 
-        public IPipelineFactory PipelineFactory => _pipelineFactory;
+        public CompositePipe<CommandResults> PipelineFactory => _pipeline;
 
         public CommandResults Analyse(
             RepositoryUrl repositoryUrl,
             RepositoryDestination repositoryDestination) 
-                => _pipelineFactory
-                    .CreateDataAnalysisPipeline(repositoryUrl, repositoryDestination)
-                    .Create()
-                    .Pipe(new CommandResults());
+                => _pipeline.Pipe(new CommandResults());
 
         public Task<CommandResults> AnalyseAsync(
             RepositoryUrl repository,

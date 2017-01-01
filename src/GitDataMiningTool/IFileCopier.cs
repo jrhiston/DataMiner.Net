@@ -1,6 +1,6 @@
 ﻿namespace GitDataMiningTool
 {
-    internal interface IFileCopier
+    public interface IFileCopier
     {
         void CopyGenerateGitLogFileToPath(
             string source,

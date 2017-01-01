@@ -5,13 +5,13 @@ using System.IO;
 
 namespace GitDataMiningTool.Commands
 {
-    internal class FileDataReaderCommand : CommandResultVisitorBase
+    internal class DataAnalysisFileReaderCommand : CommandResultVisitorBase
     {
         private readonly string _fileToRead;
         private readonly DataAnalysisResultType _type;
         private readonly RepositoryDestination _repositoryDestination;
 
-        public FileDataReaderCommand(
+        public DataAnalysisFileReaderCommand(
             string fileToRead,
             DataAnalysisResultType type,
             RepositoryDestination repositoryDestination)
