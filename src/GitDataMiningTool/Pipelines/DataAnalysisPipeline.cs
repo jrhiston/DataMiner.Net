@@ -5,66 +5,64 @@ using GitDataMiningTool.Pipelines.Data;
 
 namespace GitDataMiningTool.Pipelines
 {
-    public class DataAnalysisPipeline
+    public sealed class DataAnalysisPipeline
     {
-        private readonly IFileCopier _fileCopier;
-        private readonly RepositoryUrl _repositoryUrl;
-        private readonly RepositoryDestination _repositoryDestination;
+        public IFileCopier FileCopier { get; }
 
-        public IFileCopier FileCopier => _fileCopier;
-        public RepositoryUrl RepositoryUrl => _repositoryUrl;
-        public RepositoryDestination RepositoryDestination => _repositoryDestination;
+        public RepositoryUrl RepositoryUrl { get; }
+
+        public RepositoryDestination RepositoryDestination { get; }
 
         private DataAnalysisPipeline(
             IFileCopier fileCopier,
             RepositoryUrl repositoryUrl,
             RepositoryDestination repositoryDestination)
         {
-            _fileCopier = fileCopier;
-            _repositoryUrl = repositoryUrl;
-            _repositoryDestination = repositoryDestination;
+            FileCopier = fileCopier;
+            RepositoryUrl = repositoryUrl;
+            RepositoryDestination = repositoryDestination;
         }
 
         private CompositePipe<CommandResults> Create()
             => new CompositePipe<CommandResults>(
                 new ConditionalPipe<CommandResults>(
-                    r => Directory.Exists(_repositoryDestination.ToString()),
+                    r => Directory.Exists(RepositoryDestination.ToString()),
                     new CompositePipe<CommandResults>(
-                        SummaryDataPipeline.CreatePipeline(_repositoryDestination),
-                        OrganisationalMetricsDataPipeline.CreatePipeline(_repositoryDestination),
-                        CouplingDataPipeline.CreatePipeline(_repositoryDestination),
-                        AgeDataPipeline.CreatePipeline(_repositoryDestination),
-                        AbsoluteChurnDataPipeline.CreatePipeline(_repositoryDestination),
-                        AuthorChurnDataPipeline.CreatePipeline(_repositoryDestination),
-                        EntityChurnDataPipeline.CreatePipeline(_repositoryDestination),
-                        EntityEffortDataPipeline.CreatePipeline(_repositoryDestination),
-                        EntityOwnershipDataPipeline.CreatePipeline(_repositoryDestination)),
+                        SummaryDataPipeline.CreatePipeline(RepositoryDestination),
+                        OrganisationalMetricsDataPipeline.CreatePipeline(RepositoryDestination),
+                        CouplingDataPipeline.CreatePipeline(RepositoryDestination),
+                        AgeDataPipeline.CreatePipeline(RepositoryDestination),
+                        AbsoluteChurnDataPipeline.CreatePipeline(RepositoryDestination),
+                        AuthorChurnDataPipeline.CreatePipeline(RepositoryDestination),
+                        EntityChurnDataPipeline.CreatePipeline(RepositoryDestination),
+                        EntityEffortDataPipeline.CreatePipeline(RepositoryDestination),
+                        EntityOwnershipDataPipeline.CreatePipeline(RepositoryDestination)),
                     new CompositePipe<CommandResults>(
-                        CloneRepositoryPipeline.CreatePipeline(_repositoryUrl, _repositoryDestination),
-                        CopyFilesToDestinationPipeline.CreatePipeline(_fileCopier, _repositoryDestination),
-                        GenerateDataPipeline.CreatePipeline(_repositoryDestination, BenchmarkingFileNames.GitLogFileName),
-                        GenerateDataPipeline.CreatePipeline(_repositoryDestination, BenchmarkingFileNames.GitAnalysisFileName),
-                        SummaryDataPipeline.CreatePipeline(_repositoryDestination),
-                        OrganisationalMetricsDataPipeline.CreatePipeline(_repositoryDestination),
-                        CouplingDataPipeline.CreatePipeline(_repositoryDestination),
-                        AgeDataPipeline.CreatePipeline(_repositoryDestination),
-                        AbsoluteChurnDataPipeline.CreatePipeline(_repositoryDestination),
-                        AuthorChurnDataPipeline.CreatePipeline(_repositoryDestination),
-                        EntityChurnDataPipeline.CreatePipeline(_repositoryDestination),
-                        EntityEffortDataPipeline.CreatePipeline(_repositoryDestination),
-                        EntityOwnershipDataPipeline.CreatePipeline(_repositoryDestination))));
+                        CloneRepositoryPipeline.CreatePipeline(RepositoryUrl, RepositoryDestination),
+                        CopyFilesToDestinationPipeline.CreatePipeline(FileCopier, RepositoryDestination),
+                        GenerateDataPipeline.CreatePipeline(RepositoryDestination, BenchmarkingFileNames.GitLogFileName),
+                        GenerateDataPipeline.CreatePipeline(RepositoryDestination, BenchmarkingFileNames.GitAnalysisFileName),
+                        SummaryDataPipeline.CreatePipeline(RepositoryDestination),
+                        OrganisationalMetricsDataPipeline.CreatePipeline(RepositoryDestination),
+                        CouplingDataPipeline.CreatePipeline(RepositoryDestination),
+                        AgeDataPipeline.CreatePipeline(RepositoryDestination),
+                        AbsoluteChurnDataPipeline.CreatePipeline(RepositoryDestination),
+                        AuthorChurnDataPipeline.CreatePipeline(RepositoryDestination),
+                        EntityChurnDataPipeline.CreatePipeline(RepositoryDestination),
+                        EntityEffortDataPipeline.CreatePipeline(RepositoryDestination),
+                        EntityOwnershipDataPipeline.CreatePipeline(RepositoryDestination))));
 
         public static CompositePipe<CommandResults> CreatePipeline(
             IFileCopier fileCopier,
             RepositoryUrl repositoryUrl,
             RepositoryDestination repositoryDestination)
                 => new DataAnalysisPipeline(
-                    fileCopier, 
-                    repositoryUrl, 
+                    fileCopier,
+                    repositoryUrl,
                     repositoryDestination);
 
         public static implicit operator CompositePipe<CommandResults>(
-            DataAnalysisPipeline pipeline) 
+            DataAnalysisPipeline pipeline)
             => pipeline.Create();
     }
 }

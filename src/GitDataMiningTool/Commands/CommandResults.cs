@@ -7,7 +7,7 @@ namespace GitDataMiningTool.Commands
     /// <summary>
     /// Represents a collection of command results.
     /// </summary>
-    public class CommandResults : 
+    public class CommandResults :
         IEnumerable<ICommandResult>,
         ICommandResult
     {

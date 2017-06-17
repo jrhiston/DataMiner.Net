@@ -7,7 +7,7 @@ namespace GitDataMiningTool.Pipelines
     /// <summary>
     /// Generate the data to be analysed by the tool.
     /// </summary>
-    public class GenerateDataPipeline
+    public sealed class GenerateDataPipeline
     {
         private readonly string _fileToRun;
         private readonly RepositoryDestination _repositoryDestination;
@@ -16,9 +16,9 @@ namespace GitDataMiningTool.Pipelines
             RepositoryDestination repositoryDestination,
             string fileToRun)
         {
-            _repositoryDestination = repositoryDestination 
+            _repositoryDestination = repositoryDestination
                 ?? throw new ArgumentNullException(nameof(repositoryDestination));
-            _fileToRun = fileToRun 
+            _fileToRun = fileToRun
                 ?? throw new ArgumentNullException(nameof(fileToRun));
         }
 
@@ -35,7 +35,7 @@ namespace GitDataMiningTool.Pipelines
             => new GenerateDataPipeline(repositoryDestination, fileToRun);
 
         public static implicit operator CompositePipe<CommandResults>(
-            GenerateDataPipeline pipeline) 
+            GenerateDataPipeline pipeline)
             => pipeline.Create();
     }
 }

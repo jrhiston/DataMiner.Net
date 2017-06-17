@@ -7,7 +7,7 @@ namespace GitDataMiningTool.Pipelines
     /// <summary>
     /// Copy the benchmarking files to the destination given.
     /// </summary>
-    public class CopyFilesToDestinationPipeline
+    public sealed class CopyFilesToDestinationPipeline
     {
         private readonly IFileCopier _fileCopier;
         private readonly RepositoryDestination _repositoryDestination;
@@ -21,9 +21,9 @@ namespace GitDataMiningTool.Pipelines
             RepositoryDestination repositoryDestination,
             IFileCopier fileCopier = null)
         {
-            _fileCopier = fileCopier 
+            _fileCopier = fileCopier
                 ?? new DefaultFileCopier();
-            _repositoryDestination = repositoryDestination 
+            _repositoryDestination = repositoryDestination
                 ?? throw new ArgumentNullException(nameof(repositoryDestination));
         }
 
@@ -35,7 +35,7 @@ namespace GitDataMiningTool.Pipelines
             new CompositePipe<CommandResults>(
                 new CommandVisitorPipe(
                     new CopyFilesToDestinationCommand(
-                        _fileCopier, 
+                        _fileCopier,
                         _repositoryDestination)));
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace GitDataMiningTool.Pipelines
             => new CopyFilesToDestinationPipeline(repositoryDestination, fileCopier);
 
         public static implicit operator CompositePipe<CommandResults>(
-            CopyFilesToDestinationPipeline pipeline) 
+            CopyFilesToDestinationPipeline pipeline)
             => pipeline.Create();
     }
 }

@@ -7,17 +7,16 @@ namespace GitDataMiningTool.Pipelines.Data
     public abstract class DataPipelineBase
     {
         private readonly string _fileToRead;
-        private readonly RepositoryDestination _repositoryDestination;
         private readonly DataAnalysisResultType _resultType;
 
-        public RepositoryDestination RepositoryDestination => _repositoryDestination;
+        public RepositoryDestination RepositoryDestination { get; }
 
         protected DataPipelineBase(
             string fileToRead,
             DataAnalysisResultType resultType,
             RepositoryDestination repositoryDestination)
         {
-            _repositoryDestination = repositoryDestination
+            RepositoryDestination = repositoryDestination
                 ?? throw new ArgumentNullException(nameof(repositoryDestination));
             _fileToRead = fileToRead
                 ?? throw new ArgumentNullException(nameof(fileToRead));

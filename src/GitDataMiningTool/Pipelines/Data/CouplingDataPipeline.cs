@@ -3,13 +3,13 @@ using GitDataMiningTool.Pipes;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class CouplingDataPipeline : DataPipelineBase
+    public sealed class CouplingDataPipeline : DataPipelineBase
     {
         private CouplingDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
                   "coupling.csv",
-                  DataAnalysisResultType.Coupling, 
+                  DataAnalysisResultType.Coupling,
                   repositoryDestination)
         {
         }

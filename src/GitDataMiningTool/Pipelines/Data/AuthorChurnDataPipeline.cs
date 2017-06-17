@@ -3,13 +3,13 @@ using GitDataMiningTool.Pipes;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class AuthorChurnDataPipeline : DataPipelineBase
+    public sealed class AuthorChurnDataPipeline : DataPipelineBase
     {
         private AuthorChurnDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
-                  "author-churn.csv", 
-                  DataAnalysisResultType.AuthorChurn, 
+                  "author-churn.csv",
+                  DataAnalysisResultType.AuthorChurn,
                   repositoryDestination)
         {
         }

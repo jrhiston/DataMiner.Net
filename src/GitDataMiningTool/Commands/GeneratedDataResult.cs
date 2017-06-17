@@ -6,17 +6,15 @@ namespace GitDataMiningTool.Commands
     public class GeneratedDataResult : ICommandResult
     {
 
-        private readonly string _result;
-
         public GeneratedDataResult(string result)
         {
             if (result == null)
                 throw new ArgumentNullException(nameof(result));
 
-            _result = result;
+            Result = result;
         }
 
-        public string Result => _result;
+        public string Result { get; }
 
         public ICommandVisitor Accept(ICommandVisitor visitor) => visitor.Visit(this);
     }

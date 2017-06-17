@@ -3,13 +3,13 @@ using GitDataMiningTool.Pipes;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class EntityOwnershipDataPipeline : DataPipelineBase
+    public sealed class EntityOwnershipDataPipeline : DataPipelineBase
     {
         private EntityOwnershipDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
-                  "entity-ownership.csv", 
-                  DataAnalysisResultType.EntityOwnership, 
+                  "entity-ownership.csv",
+                  DataAnalysisResultType.EntityOwnership,
                   repositoryDestination)
         {
         }

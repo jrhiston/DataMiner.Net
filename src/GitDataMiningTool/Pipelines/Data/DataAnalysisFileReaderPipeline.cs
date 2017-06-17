@@ -7,7 +7,7 @@ namespace GitDataMiningTool.Pipelines.Data
     /// <summary>
     /// Allows the reader of a file.
     /// </summary>
-    public class DataAnalysisFileReaderPipeline
+    public sealed class DataAnalysisFileReaderPipeline
     {
         private readonly string _fileToRead;
         private readonly RepositoryDestination _repositoryDestination;
@@ -18,7 +18,7 @@ namespace GitDataMiningTool.Pipelines.Data
             DataAnalysisResultType resultType,
             RepositoryDestination repositoryDestination)
         {
-            _fileToRead = fileToRead 
+            _fileToRead = fileToRead
                 ?? throw new ArgumentNullException(nameof(fileToRead));
             _repositoryDestination = repositoryDestination
                 ?? throw new ArgumentNullException(nameof(repositoryDestination));
@@ -29,20 +29,20 @@ namespace GitDataMiningTool.Pipelines.Data
             new CompositePipe<CommandResults>(
                 new CommandVisitorPipe(
                     new DataAnalysisFileReaderCommand(
-                        _fileToRead, 
-                        _resultType, 
+                        _fileToRead,
+                        _resultType,
                         _repositoryDestination)));
 
         public static CompositePipe<CommandResults> CreatePipeline(
             string fileToRead,
             DataAnalysisResultType resultType,
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
                 => new DataAnalysisFileReaderPipeline(
-                    fileToRead, 
-                    resultType, 
+                    fileToRead,
+                    resultType,
                     repositoryDestination);
 
-        public static implicit operator CompositePipe<CommandResults>(DataAnalysisFileReaderPipeline pipeline) 
+        public static implicit operator CompositePipe<CommandResults>(DataAnalysisFileReaderPipeline pipeline)
             => pipeline.Create();
     }
 }

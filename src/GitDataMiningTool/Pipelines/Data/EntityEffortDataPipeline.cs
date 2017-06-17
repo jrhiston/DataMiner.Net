@@ -3,13 +3,13 @@ using GitDataMiningTool.Pipes;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class EntityEffortDataPipeline : DataPipelineBase
+    public sealed class EntityEffortDataPipeline : DataPipelineBase
     {
         private EntityEffortDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
-                  "entity-effort.csv", 
-                  DataAnalysisResultType.EntityEffort, 
+                  "entity-effort.csv",
+                  DataAnalysisResultType.EntityEffort,
                   repositoryDestination)
         {
         }

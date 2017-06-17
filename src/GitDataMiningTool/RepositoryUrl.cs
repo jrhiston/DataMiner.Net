@@ -7,7 +7,6 @@ namespace GitDataMiningTool
     /// </summary>
     public class RepositoryUrl : IEquatable<RepositoryUrl>
     {
-        private readonly string _url;
 
         /// <summary>
         /// Constructor.
@@ -18,16 +17,16 @@ namespace GitDataMiningTool
             if (url == null)
                 throw new ArgumentNullException(nameof(url));
 
-            _url = url;
+            Url = url;
         }
 
         /// <summary>
         /// Get the url this class encapsulates.
         /// </summary>
-        public string Url => _url;
+        public string Url { get; }
 
         public bool Equals(RepositoryUrl other) => other != null && other.Url == Url;
         public override string ToString() => Url;
-        public override int GetHashCode() => _url.GetHashCode();
+        public override int GetHashCode() => Url.GetHashCode();
     }
 }

@@ -1,29 +1,45 @@
 ﻿using GitDataMiningTool.Commands;
+using GitDataMiningTool.Pipelines;
 using GitDataMiningTool.Pipes;
-using System;
 using System.Threading.Tasks;
 
 namespace GitDataMiningTool
 {
+    /// <summary>
+    /// Analyses a git repository that is publicly available, given a <see cref="RepositoryUrl"/>,
+    /// and a <see cref="RepositoryDestination"/> to process the repository in.
+    /// </summary>
     public class RepositoryAnalyser
     {
-        private readonly CompositePipe<CommandResults> _pipeline;
-
-        public RepositoryAnalyser(CompositePipe<CommandResults> pipeline)
+        /// <summary>
+        /// Initialises a new instance of the <see cref="RepositoryAnalyser"/>.
+        /// </summary>
+        /// <param name="url">A <see cref="RepositoryUrl"/> representing the url of the git repository</param>
+        /// <param name="destination">A <see cref="RepositoryDestination"/> for extracting the repository into.</param>
+        public RepositoryAnalyser(RepositoryUrl url, RepositoryDestination destination)
         {
-            _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
+            Pipeline = DataAnalysisPipeline.CreatePipeline(new DefaultFileCopier(), url, destination);
         }
 
-        public CompositePipe<CommandResults> PipelineFactory => _pipeline;
+        /// <summary>
+        /// Gets the pipeline that will be run by this analyser.
+        /// </summary>
+        public CompositePipe<CommandResults> Pipeline { get; }
 
-        public CommandResults Analyse(
-            RepositoryUrl repositoryUrl,
-            RepositoryDestination repositoryDestination) 
-                => _pipeline.Pipe(new CommandResults());
+        /// <summary>
+        /// Pipes a <see cref="CommandResults"/> through the <see cref="Pipeline"/>.
+        /// </summary>
+        /// <param name="results">An optional set of results to pipe into the pipeline.</param>
+        /// <returns>A <see cref="CommandResults"/> after processing the git repository.</returns>
 
-        public Task<CommandResults> AnalyseAsync(
-            RepositoryUrl repository,
-            RepositoryDestination repositoryDestination) 
-                => Task.Run(() => Analyse(repository, repositoryDestination));
+        public CommandResults Analyse(CommandResults results = null) => Pipeline.Pipe(results ?? new CommandResults());
+
+        /// <summary>
+        /// Pipes a <see cref="CommandResults"/> through the <see cref="Pipeline"/> asynchronously.
+        /// </summary>
+        /// <param name="results">An optional set of results to pipe into the pipeline.</param>
+        /// <returns>A <see cref="CommandResults"/> after processing the git repository.</returns>
+
+        public Task<CommandResults> AnalyseAsync() => Task.Run(() => Analyse());
     }
 }

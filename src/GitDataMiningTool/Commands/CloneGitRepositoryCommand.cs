@@ -13,9 +13,9 @@ namespace GitDataMiningTool.Commands
             RepositoryUrl repositoryUrl,
             RepositoryDestination repositoryDestination)
         {
-            _repositoryUrl = repositoryUrl 
+            _repositoryUrl = repositoryUrl
                 ?? throw new ArgumentNullException(nameof(repositoryUrl));
-            _repositoryDestination = repositoryDestination 
+            _repositoryDestination = repositoryDestination
                 ?? throw new ArgumentNullException(nameof(repositoryDestination));
         }
 

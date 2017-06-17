@@ -3,12 +3,12 @@ using GitDataMiningTool.Pipes;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class AgeDataPipeline : DataPipelineBase
+    public sealed class AgeDataPipeline : DataPipelineBase
     {
         private AgeDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
-                  "age.csv", 
+                  "age.csv",
                   DataAnalysisResultType.Age,
                   repositoryDestination)
         {

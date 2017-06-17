@@ -3,10 +3,10 @@ using GitDataMiningTool.Pipes;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class SummaryDataPipeline : DataPipelineBase
+    public sealed class SummaryDataPipeline : DataPipelineBase
     {
         private SummaryDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
                   "summary.csv",
                   DataAnalysisResultType.Summary,

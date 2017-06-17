@@ -4,10 +4,10 @@ using System;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class OrganisationalMetricsDataPipeline : DataPipelineBase
+    public sealed class OrganisationalMetricsDataPipeline : DataPipelineBase
     {
         private OrganisationalMetricsDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
                   "org-metrics.csv",
                   DataAnalysisResultType.OrganisationMetrics,

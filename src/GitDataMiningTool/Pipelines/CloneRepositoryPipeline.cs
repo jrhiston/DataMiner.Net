@@ -6,7 +6,7 @@ namespace GitDataMiningTool.Pipelines
     /// <summary>
     /// A pipeline for cloning repositories.
     /// </summary>
-    public class CloneRepositoryPipeline
+    public sealed class CloneRepositoryPipeline
     {
         private RepositoryDestination _repositoryDestination;
         private RepositoryUrl _repositoryUrl;
@@ -17,7 +17,7 @@ namespace GitDataMiningTool.Pipelines
         /// <param name="repositoryUrl">The url to clone.</param>
         /// <param name="repositoryDestination">The destination to clone into.</param>
         private CloneRepositoryPipeline(
-            RepositoryUrl repositoryUrl, 
+            RepositoryUrl repositoryUrl,
             RepositoryDestination repositoryDestination)
         {
             _repositoryUrl = repositoryUrl;
@@ -32,7 +32,7 @@ namespace GitDataMiningTool.Pipelines
             new CompositePipe<CommandResults>(
                 new CommandVisitorPipe(
                     new CloneGitRepositoryCommand(
-                        _repositoryUrl, 
+                        _repositoryUrl,
                         _repositoryDestination)));
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace GitDataMiningTool.Pipelines
         /// <param name="repositoryDestination">The destination to clone into.</param>
         public static CompositePipe<CommandResults> CreatePipeline(
             RepositoryUrl repositoryUrl,
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
                 => new CloneRepositoryPipeline(repositoryUrl, repositoryDestination);
 
         public static implicit operator CompositePipe<CommandResults>(CloneRepositoryPipeline pipeline)

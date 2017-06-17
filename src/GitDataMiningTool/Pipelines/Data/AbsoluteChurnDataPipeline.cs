@@ -3,13 +3,13 @@ using GitDataMiningTool.Pipes;
 
 namespace GitDataMiningTool.Pipelines.Data
 {
-    public class AbsoluteChurnDataPipeline : DataPipelineBase
+    public sealed class AbsoluteChurnDataPipeline : DataPipelineBase
     {
         public AbsoluteChurnDataPipeline(
-            RepositoryDestination repositoryDestination) 
+            RepositoryDestination repositoryDestination)
             : base(
-                  "abs-churn", 
-                  DataAnalysisResultType.AbsoluteChurn, 
+                  "abs-churn",
+                  DataAnalysisResultType.AbsoluteChurn,
                   repositoryDestination)
         {
         }

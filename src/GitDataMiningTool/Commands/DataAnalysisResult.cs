@@ -5,20 +5,18 @@ namespace GitDataMiningTool.Commands
 {
     public class DataAnalysisResult : ICommandResult
     {
-        private readonly string _result;
-        private readonly DataAnalysisResultType _type;
 
         public DataAnalysisResult(string result, DataAnalysisResultType type)
         {
             if (result == null)
                 throw new ArgumentNullException(nameof(result));
 
-            _result = result;
-            _type = type;
+            Result = result;
+            ResultType = type;
         }
 
-        public string Result => _result;
-        public DataAnalysisResultType ResultType => _type;
+        public string Result { get; }
+        public DataAnalysisResultType ResultType { get; }
 
         public ICommandVisitor Accept(ICommandVisitor visitor) => visitor.Visit(this);
     }
