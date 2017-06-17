@@ -1,18 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
-    <PackageVersion>0.2.0</PackageVersion>
+    <PackageVersion>0.3.0</PackageVersion>
     <Authors>Jack Histon</Authors>
     <Description>A library for data mining git repositories.</Description>
     <PackageTags>data-mining;git</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="benchmarking\Instructions.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="benchmarking\generate-git-log.bat" />
-    <None Include="benchmarking\git-analysis.bat" />
-    <None Include="benchmarking\maat-1.0.jar" />
+    <Content Include="benchmarking\generate-git-log.bat" />
+    <Content Include="benchmarking\git-analysis.bat" />
+    <Content Include="benchmarking\maat-1.0.jar" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
