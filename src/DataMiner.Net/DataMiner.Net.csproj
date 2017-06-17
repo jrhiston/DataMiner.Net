@@ -7,10 +7,18 @@
     <PackageTags>data-mining;git</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="benchmarking\Instructions.txt" />
-    <Content Include="benchmarking\generate-git-log.bat" />
-    <Content Include="benchmarking\git-analysis.bat" />
-    <Content Include="benchmarking\maat-1.0.jar" />
+    <Content Include="benchmarking\Instructions.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="benchmarking\generate-git-log.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="benchmarking\git-analysis.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="benchmarking\maat-1.0.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />

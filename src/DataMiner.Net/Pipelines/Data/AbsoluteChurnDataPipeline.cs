@@ -8,7 +8,7 @@ namespace GitDataMiningTool.Pipelines.Data
         public AbsoluteChurnDataPipeline(
             RepositoryDestination repositoryDestination)
             : base(
-                  "abs-churn",
+                  "abs-churn.csv",
                   DataAnalysisResultType.AbsoluteChurn,
                   repositoryDestination)
         {
